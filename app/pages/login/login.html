@@ -1,0 +1,13 @@
+<Image src="res://background_clownia" stretch="aspectFill"></Image>
+  <StackLayout #container>
+  <Image src="res://clownia_logo_white" stretch="aspectFit" horizontalAlignment="center"></Image>
+  
+    <TextField [(ngModel)]="user.email" hint="Email Address" keyboardType="email"
+    autocorrect="false" autocapitalizationType="none"></TextField>
+    <TextField [(ngModel)]="user.password" hint="Password" secure="true"></TextField>
+
+    <Button [text]="isLoggingIn ? 'Sign in' : 'Sign up'" class="submit-button" (tap)="submit()"></Button>
+    <Button [text]="isLoggingIn ? 'Sign up' : 'Back to login'" (tap)="loggingIn()"></Button>
+    <Button class="loginBtn loginBtn--facebook" [text]="'Login with Facebook'" (tap)="facebookLogin()"></Button>
+    <Button class="loginBtn loginBtn--google" [text]="'Login with Google'" (tap)="googleLogin()"></Button>
+  </StackLayout>

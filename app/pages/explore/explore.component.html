@@ -1,0 +1,14 @@
+<ActionBar title="Explora el Ripollès">
+  <NavigationButton text="Menu" icon="res://ic_menu" (tap)="openDrawer()"></NavigationButton>
+</ActionBar>
+<RadSideDrawer #drawerComponent tkToggleNavButton showOverNavigation="true">
+  <ScrollView tkDrawerContent class="drawer-content">
+      <StackLayout horizzontalAlign="left">
+          <drawer-content></drawer-content>
+      </StackLayout>
+  </ScrollView>
+  <StackLayout tkMainContent padding="20">
+      <Label text="Pàgina per explorar el ripollès/sant joan de les abadesses"></Label>
+  </StackLayout>
+</RadSideDrawer>
+

@@ -1,0 +1,6 @@
+dist/*
+node_modules/*
+hooks/*
+platforms/*
+IMAGES/*
+AF_guia_clownia_2017_web3.pdf

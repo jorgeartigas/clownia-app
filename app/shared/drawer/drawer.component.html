@@ -1,0 +1,28 @@
+<GridLayout class="drawer-header">
+    <StackLayout orientation="horizontal" horizontalAlignment="center">
+            <Image src="res://clownia_logo_white" class="action-image"></Image>
+    </StackLayout>
+</GridLayout>
+<StackLayout class="drawer-links" orientation="vertical">
+    <StackLayout class="drawer-link" orientation="horizontal" [nsRouterLink]="['/city-of-clownia']">
+        <Image src="res://add" stretch="none"></Image>
+        <Label class="text" text="Ciutat de Clownia"></Label>
+    </StackLayout>
+    <StackLayout class="drawer-link" orientation="horizontal" [nsRouterLink]="['/con-space']">
+        <Image src="res://add" stretch="none"></Image>
+        <Label class="text" text="Espai Consciència"></Label>
+    </StackLayout>
+    <StackLayout class="drawer-link" orientation="horizontal" [nsRouterLink]="['/explore']">
+        <Image src="res://add" stretch="none"></Image>
+        <Label class="text" text="Sant Joan de les Abadesses i el Ripollès"></Label>
+    </StackLayout>
+    <StackLayout class="drawer-separator">
+    </StackLayout>
+    <StackLayout class="drawer-link" orientation="horizontal" (tap)="logout()">
+        <Image src="res://add" stretch="none"></Image>
+        <Label class="text" text="Logout" ></Label>
+    </StackLayout>
+    <StackLayout class="drawer-link" orientation="horizontal" [nsRouterLink]="['/home']">
+        <Label class="text" text="Credits"></Label>
+    </StackLayout>
+</StackLayout>

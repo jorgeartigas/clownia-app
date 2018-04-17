@@ -1,0 +1,74 @@
+TextField{
+    padding: 10;
+    font-size: 13;
+    border-width: 1;
+    border-radius: 10%;
+    border-color: black;
+}
+
+.small-spacing {
+    margin: 5;
+  }
+.medium-spacing {
+    margin: 10;
+}
+
+/*DRAWER CSS*/
+ActionBar {
+    padding-top:20;
+    background-color: #0b0e9b;
+    color: white;
+}
+
+.drawer-content {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.drawer-content .drawer-header {
+    height: 150;
+    background-color: #0b0e9b;
+    margin-bottom: 7;
+}
+
+.drawer-content .drawer-links .drawer-link {
+    font-size: 15;
+    padding: 15;
+}
+
+.drawer-content .drawer-links .drawer-link .fa {
+    font-size: 20;
+    margin-right: 10;
+}
+
+.drawer-content .drawer-links .drawer-link .text {
+    margin-left: 30;
+}
+
+.drawer-content .drawer-links .current {
+    background-color: #dddddd;
+}
+
+.drawer-content .drawer-separator {
+    height: 1;
+    background-color: #dddddd;
+    margin: 7 0;
+}
+
+@keyframes glow {
+    0% {
+        background-color: #eeeeee;
+    }
+    50% {
+        background-color: #b7b7b7;
+    }
+    100% {
+        background-color: #eeeeee;
+    }
+}
+
+.anim {
+    animation-name: glow;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
