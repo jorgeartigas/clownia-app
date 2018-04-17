@@ -23,6 +23,7 @@ ActionBar {
 .drawer-content {
     background-color: #eeeeee;
     color: black;
+    font-family: "FontAwesome"
 }
 
 .drawer-content .drawer-header {
@@ -42,7 +43,7 @@ ActionBar {
 }
 
 .drawer-content .drawer-links .drawer-link .text {
-    margin-left: 30;
+    margin-left: 10;
 }
 
 .drawer-content .drawer-links .current {
