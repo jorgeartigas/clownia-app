@@ -9,7 +9,7 @@ import { DrawerComponent } from "./shared/drawer/drawer.component";
 // APP COMPONENT IMPORTS
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
-import { BottomBar } from "./shared/bottom-bar/bottom-bar.component";
+import { BottomBarComponent } from "./shared/bottom-bar/bottom-bar.component";
 
 // FIREBASE IMPORT
 import firebase = require ('nativescript-plugin-firebase');
@@ -38,8 +38,8 @@ firebase.init({
     AppComponent,
     ...navigatableComponents,
     SIDEDRAWER_DIRECTIVES,
-    BottomBar,
-    DrawerComponent
+    DrawerComponent,
+    BottomBarComponent
   ],
   bootstrap: [AppComponent]
 })

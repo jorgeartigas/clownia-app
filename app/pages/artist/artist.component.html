@@ -1,4 +1,4 @@
-<ActionBar title="Home">
+<ActionBar title="Artist">
   <NavigationButton text="Menu" icon="res://ic_menu" (tap)="openDrawer()"></NavigationButton>
 </ActionBar>
 <RadSideDrawer #drawerComponent tkToggleNavButton showOverNavigation="true">
@@ -11,7 +11,13 @@
   <StackLayout tkMainContent>
       <GridLayout rows="*,60">
           <ScrollView row="0">
-
+              <StackLayout padding="20">
+                  <GridLayout columns="120,*" rows="*,*">
+                        <Image class="profile-image" col="0" src="{{ artist?.profile_pic }}" stretch="aspectFit"></Image>
+                        <Label class="artist-header" col="1" text="{{ artist?.name }}" textWrap="true"></Label>
+                        <StackLayout row="1" colSpan="2" class="separator"></StackLayout>
+                  </GridLayout>
+              </StackLayout>
           </ScrollView>
           <!-- BOTTOM BAR -->
           <bottom-bar></bottom-bar>

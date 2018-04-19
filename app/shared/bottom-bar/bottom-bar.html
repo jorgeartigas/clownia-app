@@ -1,5 +1,14 @@
-<TabView selectedColor="#FF0000" iosIconRenderingMode="alwaysOriginal">
-        <StackLayout *tabItem="{title: 'Profile', iconSource: 'res://icon'}"></StackLayout>
-        <StackLayout *tabItem="{title: 'Stats'}"></StackLayout>
-        <StackLayout *tabItem="{title: 'Settings'}"></StackLayout>
-</TabView>
+<StackLayout row="1" orientation="horizontal">
+        <StackLayout width="25%" (tap)="selected(0)" [nsRouterLink]="['/line-up']">
+                <Label class="{{ arraySelected[0] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf0ca;" textAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout width="25%" (tap)="selected(1)" [nsRouterLink]="['/line-up']">
+                <Label class="{{ arraySelected[1] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf005;" textAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout width="25%" (tap)="selected(2)" [nsRouterLink]="['/map']">
+                <Label class="{{ arraySelected[2] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf041;" textAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout width="25%" (tap)="selected(3)" [nsRouterLink]="['/help']">
+                <Label class="{{ arraySelected[3] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf059;" textAlignment="center"></Label>
+        </StackLayout>
+</StackLayout>

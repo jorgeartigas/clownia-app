@@ -1,0 +1,14 @@
+.profile-image{
+   
+}
+.artist-header {
+    font-size: 30;
+    font-weight: bold;
+    padding-left: 7;
+}
+.separator{
+    margin-top: 7;
+    height:2px;
+    background:black;
+    border-bottom: 1px solid black;
+}

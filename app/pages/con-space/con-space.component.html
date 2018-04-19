@@ -7,8 +7,16 @@
           <drawer-content></drawer-content>
       </StackLayout>
   </ScrollView>
-  <StackLayout tkMainContent padding="20">
+  <!-- MAIN CONTENT OF PAGE GOES BELOW-->
+  <StackLayout tkMainContent>
       <Label text="Pàgina del espai consciència"></Label>
+      <GridLayout rows="*,60">
+            <ScrollView row="0">
+
+            </ScrollView>
+            <!-- BOTTOM BAR -->
+            <bottom-bar></bottom-bar>
+    </GridLayout>
   </StackLayout>
 </RadSideDrawer>
 

@@ -1,4 +1,4 @@
-<ActionBar title="Explora el Ripollès">
+<ActionBar title="Help">
   <NavigationButton text="Menu" icon="res://ic_menu" (tap)="openDrawer()"></NavigationButton>
 </ActionBar>
 <RadSideDrawer #drawerComponent tkToggleNavButton showOverNavigation="true">
@@ -9,14 +9,13 @@
   </ScrollView>
   <!-- MAIN CONTENT OF PAGE GOES BELOW-->
   <StackLayout tkMainContent>
-      <Label text="Pàgina per explorar el ripollès/sant joan de les abadesses"></Label>
       <GridLayout rows="*,60">
-            <ScrollView row="0">
-  
-            </ScrollView>
-            <!-- BOTTOM BAR -->
-            <bottom-bar></bottom-bar>
-        </GridLayout>
+          <ScrollView row="0">
+            <Label text="Help"></Label>
+          </ScrollView>
+          <!-- BOTTOM BAR -->
+          <bottom-bar></bottom-bar>
+      </GridLayout>
   </StackLayout>
 </RadSideDrawer>
 

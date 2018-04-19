@@ -1,0 +1,15 @@
+StackLayout{
+    background-color: LightGray;
+    font-family: "FontAwesome";
+    font-size: 30;
+}
+.bottom-unselected{
+    padding-top: 10;
+    border:none;
+    color:white;
+}
+.bottom-selected{
+    padding-top: 10;
+    border:none;
+    color:black;
+}

@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { View } from "ui/core/view";
-import * as utils from "utils/utils";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "bottom-bar",
@@ -9,10 +8,23 @@ import * as utils from "utils/utils";
   templateUrl: "./bottom-bar.html",
   styleUrls: ["./bottom-bar-common.css", "./bottom-bar.css"]
 })
-export class BottomBar {
-  public tabSelectedIndex: number;
+export class BottomBarComponent {
+  // 0 -> LineUp
+  // 1 -> Social
+  // 2 -> Map
+  // 3 -> Help
+  arraySelected: Array<boolean> = [false,false,false,false];
+  constructor(private route: ActivatedRoute){
+    console.log(route.snapshot.url[0].path);
+  }
 
-  constructor() {
-      this.tabSelectedIndex = 1;
+  selected(index:number){
+    for(let i=0;i<this.arraySelected.length;i++){
+      if(i===index){
+        this.arraySelected[i]=true;
+      }else{
+        this.arraySelected[i]=false;
+      }
+    }
   }
 }

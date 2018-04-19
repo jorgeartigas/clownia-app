@@ -3,13 +3,13 @@ import { DrawerPage } from "../../shared/drawer/drawer.page";
 import firebase = require("nativescript-plugin-firebase")
 
 @Component({
-  selector: "home",
+  selector: "help",
   moduleId: module.id,
   providers: [],
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home-common.css"]
+  templateUrl: "./help.component.html",
+  styleUrls: ["./help-common.css"]
 })
-export class HomeComponent extends DrawerPage implements OnInit {
+export class HelpComponent extends DrawerPage implements OnInit {
   //addArtist = firebase.firestore.collection("artists");
 
   constructor(private changeDetectorRef: ChangeDetectorRef){

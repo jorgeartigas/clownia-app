@@ -1,4 +1,4 @@
-<ActionBar title="Home">
+<ActionBar title="Artistes">
   <NavigationButton text="Menu" icon="res://ic_menu" (tap)="openDrawer()"></NavigationButton>
 </ActionBar>
 <RadSideDrawer #drawerComponent tkToggleNavButton showOverNavigation="true">
@@ -11,7 +11,14 @@
   <StackLayout tkMainContent>
       <GridLayout rows="*,60">
           <ScrollView row="0">
-
+            <Label text="Line-Up"></Label>
+              <ListView [items]="artists">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                        <Label [text]='"[" + item.id +"] " + item.data().name'></Label>
+                    </StackLayout>
+                </ng-template>
+            </ListView>
           </ScrollView>
           <!-- BOTTOM BAR -->
           <bottom-bar></bottom-bar>
