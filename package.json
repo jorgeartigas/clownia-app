@@ -7,11 +7,11 @@
 	"repository": "<fill-your-repository-here>",
 	"nativescript": {
 		"id": "org.nativescript.clownia",
-		"tns-ios": {
-			"version": "3.4.1"
-		},
 		"tns-android": {
 			"version": "3.4.2"
+		},
+		"tns-ios": {
+			"version": "3.4.1"
 		}
 	},
 	"dependencies": {
@@ -29,10 +29,13 @@
 		"nativescript-plugin-firebase": "^5.1.8",
 		"nativescript-telerik-ui": "^3.1.4",
 		"nativescript-theme-core": "~1.0.4",
+		"nativescript-videoplayer": "^4.0.0",
+		"nativescript-youtube-parser": "^1.1.0",
 		"npm": "^5.8.0",
 		"reflect-metadata": "~0.1.8",
 		"rxjs": "~5.5.0",
 		"tns-core-modules": "~3.4.0",
+		"tns-platform-declarations": "^4.0.0",
 		"zone.js": "~0.8.4"
 	},
 	"devDependencies": {

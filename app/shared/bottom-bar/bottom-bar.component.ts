@@ -9,22 +9,10 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./bottom-bar-common.css", "./bottom-bar.css"]
 })
 export class BottomBarComponent {
-  // 0 -> LineUp
-  // 1 -> Social
-  // 2 -> Map
-  // 3 -> Help
-  arraySelected: Array<boolean> = [false,false,false,false];
+  activeRoute: string;
+  
   constructor(private route: ActivatedRoute){
+    this.activeRoute = route.snapshot.url[0].path;
     console.log(route.snapshot.url[0].path);
-  }
-
-  selected(index:number){
-    for(let i=0;i<this.arraySelected.length;i++){
-      if(i===index){
-        this.arraySelected[i]=true;
-      }else{
-        this.arraySelected[i]=false;
-      }
-    }
   }
 }

@@ -1,7 +1,44 @@
+TabView {
+    tab-background-color: white;
+    selected-tab-text-color: black;
+    android-selected-tab-highlight-color: blue;
+}
+
+.unselected {
+    background-color: white;
+    color: black;
+}
+.selected {
+    background-color: blue;
+    color: white;
+}
 .odd {
     background-color: white;
 }
 
 .even {
     background-color: LightGray;
+}
+.artist-info {
+    padding-top: 10;
+    padding-left: 10;
+}
+.awesome {
+    font-family: 'FontAwesome';
+    font-size: 35;
+    padding-top: 22;
+    padding-right: 10;
+}
+.day {
+    font-size: 15;
+    padding: 5;
+    background-color: blue;
+    color: white;
+}
+.stage-title {
+    font-size: 20;
+    padding: 5;
+    background-color: gray;
+    color: black;
+    transition: all 0.3s ease 0s;
 }

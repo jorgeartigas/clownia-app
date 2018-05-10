@@ -9,20 +9,152 @@
   </ScrollView>
   <!-- MAIN CONTENT OF PAGE GOES BELOW-->
   <StackLayout tkMainContent>
-      <GridLayout rows="*,60">
-          <ScrollView row="0">
-            <Label text="Line-Up"></Label>
-              <ListView [items]="artists">
-                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-                    <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
-                        <Label [text]='"[" + item.id +"] " + item.data().name'></Label>
-                    </StackLayout>
-                </ng-template>
-            </ListView>
-          </ScrollView>
-          <!-- BOTTOM BAR -->
-          <bottom-bar></bottom-bar>
-      </GridLayout>
+    <GridLayout rows="50" columns="*,*">
+        <Button class="{{ mySchedule ? 'unselected' : 'selected' }}" col="0" text="TOTS" (tap)="mySchedule = false"></Button>
+        <Button class="{{ mySchedule ? 'selected' : 'unselected' }}" col="1" text="EL MEU HORARI" (tap)="mySchedule = true"></Button>
+    </GridLayout>
+    <GridLayout rows="*,60">
+        <!--LINE UP FILTERS-->
+        <TabView *ngIf="!mySchedule" row="0" selectedIndex="0">
+            <!-- LINE UP BY NAME -->
+            <StackLayout *tabItem="{title: 'Per Nom'}" >
+                <GridLayout rows="*">
+                    <ScrollView>
+                        <ListView [items]="artists">
+                            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                    <GridLayout columns="120,*,40" row="100">
+                                        <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                        <StackLayout class="artist-info" col="1" rows="*">
+                                            <Label textWrap="true" [text]='item.name'></Label>
+                                            <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
+                                            <Label textWrap="true" [text]='item.stage'></Label>
+                                        </StackLayout>
+                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </ScrollView>
+                </GridLayout>
+            </StackLayout>
+            <!-- LINE UP BY SET TIME -->
+            <StackLayout *tabItem="{title: 'Per hora'}">
+                <Label text="Second tab item"></Label>
+            </StackLayout>
+
+            <!-- LINE UP BY STAGES AND SET TIME -->
+            <StackLayout *tabItem="{title: 'Per escenari'}">
+                <Label class="stage-title" text="MAIN STAGE" textAlignment="center" (tap)="mainStageToggle = !mainStageToggle"></Label>
+                <GridLayout *ngIf="mainStageToggle" rows="*">
+                    <ScrollView>
+                        <ListView [items]="mainStageSchedule">
+                            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                    <Label *ngIf="item.firstDay" class="day" [text]='item.day' textAlignment="center"></Label>
+                                    <GridLayout columns="120,*,40" row="100">
+                                        <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                        <StackLayout class="artist-info" col="1" rows="*">
+                                            <Label textWrap="true" [text]='item.name'></Label>
+                                            <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
+                                            <Label textWrap="true" [text]='item.stage'></Label>
+                                        </StackLayout>
+                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </ScrollView>
+                </GridLayout>
+                <Label class="stage-title" text="PLAÇA STAGE" textAlignment="center" (tap)="plazaToggle = !plazaToggle"></Label>
+                <GridLayout *ngIf="plazaToggle" rows="*">
+                    <ScrollView>
+                        <ListView [items]="plazaSchedule">
+                            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                    <Label *ngIf="item.firstDay" class="day" [text]='item.day' textAlignment="center"></Label>
+                                    <GridLayout columns="120,*,40" row="100">
+                                        <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                        <StackLayout class="artist-info" col="1" rows="*">
+                                            <Label textWrap="true" [text]='item.name'></Label>
+                                            <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
+                                            <Label textWrap="true" [text]='item.stage'></Label>
+                                        </StackLayout>
+                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </ScrollView>
+                </GridLayout>
+                <StackLayout>
+                    <Label class="stage-title" text="CARPA STAGE" textAlignment="center" (tap)="carpaToggle = !carpaToggle"></Label>
+                </StackLayout>
+                <GridLayout *ngIf="carpaToggle" rows="*">
+                    <ScrollView>
+                        <ListView [items]="carpaSchedule">
+                            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                    <Label *ngIf="item.firstDay" class="day" [text]='item.day' textAlignment="center"></Label>
+                                    <GridLayout columns="120,*,40" row="100">
+                                        <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                        <StackLayout class="artist-info" col="1" rows="*">
+                                            <Label textWrap="true" [text]='item.name'></Label>
+                                            <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
+                                            <Label textWrap="true" [text]='item.stage'></Label>
+                                        </StackLayout>
+                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </ScrollView>
+                </GridLayout>
+                <Label class="stage-title" text="ESPLANADA STAGE" textAlignment="center" (tap)="esplanadaToggle = !esplanadaToggle"></Label>
+                <GridLayout *ngIf="esplanadaToggle" rows="*">
+                    <ScrollView>
+                        <ListView [items]="esplanadaSchedule">
+                            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                    <Label *ngIf="item.firstDay" class="day" [text]='item.day' textAlignment="center"></Label>
+                                    <GridLayout columns="120,*,40" row="100">
+                                        <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                        <StackLayout class="artist-info" col="1" rows="*">
+                                            <Label textWrap="true" [text]='item.name'></Label>
+                                            <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
+                                            <Label textWrap="true" [text]='item.stage'></Label>
+                                        </StackLayout>
+                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </ScrollView>
+                </GridLayout>
+            </StackLayout>
+        </TabView>
+        <!-- MY SCHEDULE -->
+        <GridLayout *ngIf="mySchedule" rows="*">
+                <ScrollView>
+                    <ListView [items]="artists">
+                        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                            <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                <GridLayout columns="120,*" row="100">
+                                    <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                    <StackLayout col="1" rows="*">
+                                        <Label textWrap="true" [text]='item.name'></Label>
+                                        <Label textWrap="true" [text]='item.startTime'></Label>
+                                    </StackLayout>
+                                </GridLayout>
+                            </StackLayout>
+                        </ng-template>
+                    </ListView>
+                </ScrollView>
+            </GridLayout>
+
+        <!-- BOTTOM BAR -->
+        <bottom-bar></bottom-bar>
+    </GridLayout>
   </StackLayout>
 </RadSideDrawer>
 

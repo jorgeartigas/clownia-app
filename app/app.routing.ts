@@ -7,6 +7,8 @@ import { LineUpComponent } from "./pages/line-up/line-up.component";
 import { MapComponent } from "./pages/map/map.component";
 import { HelpComponent } from "./pages/help/help.component";
 import { ArtistComponent } from "./pages/artist/artist.component";
+import { AuthGuardArtist } from "./shared/auth-guard-artist.service";
+import { AuthGuardLogin } from "./shared/auth-guard-login.service";
 
 export const routes = [
   { path: "", component: LoginComponent },
@@ -17,7 +19,7 @@ export const routes = [
   { path: "line-up", component: LineUpComponent },
   { path: "map", component: MapComponent },
   { path: "help", component: HelpComponent },
-  { path: 'artist/:id', component: ArtistComponent }
+  { path: 'artist/:id', component: ArtistComponent, canActivate: [AuthGuardArtist] }
 ];
 
 export const navigatableComponents = [
@@ -29,5 +31,5 @@ export const navigatableComponents = [
   LineUpComponent,
   MapComponent,
   HelpComponent,
-  ArtistComponent
+  ArtistComponent,
 ];

@@ -13,10 +13,22 @@
           <ScrollView row="0">
               <StackLayout padding="20">
                   <GridLayout columns="120,*" rows="*,*">
-                        <Image class="profile-image" col="0" src="{{ artist?.profile_pic }}" stretch="aspectFit"></Image>
+                        <Image class="profile-image" col="0" src="{{ artist?.profile_pic}}" stretch="aspectFit"></Image>
                         <Label class="artist-header" col="1" text="{{ artist?.name }}" textWrap="true"></Label>
                         <StackLayout row="1" colSpan="2" class="separator"></StackLayout>
                   </GridLayout>
+                  <VideoPlayer
+                    src="https://firebasestorage.googleapis.com/v0/b/clownia-d67a2.appspot.com/o/%C2%BFCual%20fue%20el%20segundo%20v%C3%ADdeo%20que%20se%20subi%C3%B3%20a%20Youtube_%20(youtubemp4.to).3gp?alt=media&token=11d6d1fb-c3d6-4b9e-a20e-63cac29557c2"
+                    autoplay="true"
+                    controls="true"
+                    height="300">    
+                  </VideoPlayer>
+                  <StackLayout class="social-bar" orientation="horizontal" width="100%">
+                    <Label *ngIf="artist?.facebook_url" class="social-nav-bar" text="&#xf082;" width="25%" (tap)="navigateTo('facebook')"></Label>
+                    <Label *ngIf="artist?.youtube_url" class="social-nav-bar" text="&#xf167;" width="25%" (tap)="navigateTo('youtube')"></Label>
+                    <Label *ngIf="artist?.twitter_url" class="social-nav-bar" text="&#xf099;" width="25%" (tap)="navigateTo('twitter')"></Label>
+                    <Label *ngIf="artist?.www_url" class="social-nav-bar" text="&#xf0ac;" width="25%" (tap)="navigateTo('www')"></Label>
+                  </StackLayout>
               </StackLayout>
           </ScrollView>
           <!-- BOTTOM BAR -->

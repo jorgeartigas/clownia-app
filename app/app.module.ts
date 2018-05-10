@@ -10,7 +10,9 @@ import { DrawerComponent } from "./shared/drawer/drawer.component";
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
 import { BottomBarComponent } from "./shared/bottom-bar/bottom-bar.component";
-
+import { AuthGuardArtist } from './shared/auth-guard-artist.service';
+import { AuthGuardLogin } from './shared/auth-guard-login.service';
+import { CurrentArtist } from './shared/artist.service';
 // FIREBASE IMPORT
 import firebase = require ('nativescript-plugin-firebase');
 
@@ -40,6 +42,11 @@ firebase.init({
     SIDEDRAWER_DIRECTIVES,
     DrawerComponent,
     BottomBarComponent
+  ],
+  providers: [
+    AuthGuardArtist,
+    AuthGuardLogin,
+    CurrentArtist
   ],
   bootstrap: [AppComponent]
 })

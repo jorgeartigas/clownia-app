@@ -12,3 +12,14 @@
     background:black;
     border-bottom: 1px solid black;
 }
+.social-bar {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+.social-nav-bar {
+    font-family: 'FontAwesome';
+    font-size: 30;
+    text-align: center;
+    color:black;
+    padding: 3;
+}

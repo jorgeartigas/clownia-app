@@ -1,15 +1,16 @@
 StackLayout{
-    background-color: LightGray;
+    background-color: white;
     font-family: "FontAwesome";
     font-size: 30;
+    border-top-width: 0.4;
+    border-top-color:black;
+}
+.bar {
+    padding-top: 12;
 }
 .bottom-unselected{
-    padding-top: 10;
-    border:none;
-    color:white;
+    color:LightGray;
 }
 .bottom-selected{
-    padding-top: 10;
-    border:none;
     color:black;
 }

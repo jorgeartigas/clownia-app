@@ -1,14 +1,14 @@
 <StackLayout row="1" orientation="horizontal">
-        <StackLayout width="25%" (tap)="selected(0)" [nsRouterLink]="['/line-up']">
-                <Label class="{{ arraySelected[0] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf0ca;" textAlignment="center"></Label>
+        <StackLayout class="bar" width="25%" [nsRouterLink]="['/line-up']">
+                <Label class="{{ activeRoute == 'line-up' ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf0ca;" textAlignment="center"></Label>
         </StackLayout>
-        <StackLayout width="25%" (tap)="selected(1)" [nsRouterLink]="['/line-up']">
-                <Label class="{{ arraySelected[1] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf005;" textAlignment="center"></Label>
+        <StackLayout class="bar" width="25%" [nsRouterLink]="['/line-up']">
+                <Label class="{{ activeRoute == 'line-up' ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf005;" textAlignment="center"></Label>
         </StackLayout>
-        <StackLayout width="25%" (tap)="selected(2)" [nsRouterLink]="['/map']">
-                <Label class="{{ arraySelected[2] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf041;" textAlignment="center"></Label>
+        <StackLayout class="bar" width="25%" [nsRouterLink]="['/map']">
+                <Label class="{{ activeRoute == 'map' ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf041;" textAlignment="center"></Label>
         </StackLayout>
-        <StackLayout width="25%" (tap)="selected(3)" [nsRouterLink]="['/help']">
-                <Label class="{{ arraySelected[3] ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf059;" textAlignment="center"></Label>
+        <StackLayout class="bar" width="25%" [nsRouterLink]="['/help']">
+                <Label class="{{ activeRoute == 'help' ? 'bottom-selected' : 'bottom-unselected' }}" text="&#xf059;" textAlignment="center"></Label>
         </StackLayout>
 </StackLayout>
