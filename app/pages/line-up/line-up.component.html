@@ -40,7 +40,26 @@
             </StackLayout>
             <!-- LINE UP BY SET TIME -->
             <StackLayout *tabItem="{title: 'Per hora'}">
-                <Label text="Second tab item"></Label>
+                <GridLayout rows="*">
+                    <ScrollView>
+                        <ListView [items]="bySetTime">
+                            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['/artist/'+item.id]">
+                                    <Label *ngIf="item.firstDay" class="day" [text]='item.day' textAlignment="center"></Label>
+                                    <GridLayout columns="120,*,40" row="100">
+                                        <Image col="0" stretch="aspectFit" [src]="item.profile_pic"></Image>
+                                        <StackLayout class="artist-info" col="1" rows="*">
+                                            <Label textWrap="true" [text]='item.name'></Label>
+                                            <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
+                                            <Label textWrap="true" [text]='item.stage'></Label>
+                                        </StackLayout>
+                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                    </GridLayout>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </ScrollView>
+                </GridLayout>
             </StackLayout>
 
             <!-- LINE UP BY STAGES AND SET TIME -->

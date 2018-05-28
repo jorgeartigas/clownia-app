@@ -30,7 +30,6 @@
 		"nativescript-telerik-ui": "^3.1.4",
 		"nativescript-theme-core": "~1.0.4",
 		"nativescript-videoplayer": "^4.0.0",
-		"nativescript-youtube-parser": "^1.1.0",
 		"npm": "^5.8.0",
 		"reflect-metadata": "~0.1.8",
 		"rxjs": "~5.5.0",

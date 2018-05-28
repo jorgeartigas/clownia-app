@@ -17,15 +17,15 @@ export class LoginComponent implements OnInit {
   @ViewChild("container") container : ElementRef;
 
   constructor(private userService: UserService, private page: Page){
-    this.userService.isLoggedIn();
+    //this.userService.isLoggedIn();
     this.user = new User();
     this.user.email = "hola@hola.com"
     this.user.password = "hola123";
   }
-  ngOnInit(): void {
-    //this.userService.logout();
+  ngOnInit() {
     this.page.actionBarHidden = true;
   }
+
   submit(){
     if(this.isLoggingIn){
       this.login();
@@ -33,21 +33,29 @@ export class LoginComponent implements OnInit {
       this.signUp();
     }
   }
+
   login() {
     this.userService.login(this.user);
   }
+
   signUp() {
     this.userService.register(this.user);
     this.loggingIn();
   }
-  facebookLogin(){
+
+  facebookLogin() {
     this.userService.facebookLogin();
   }
-  googleLogin(){
+
+  googleLogin() {
     this.userService.googleLogin();
   }
 
-  loggingIn(){
+  guestLogin() {
+    this.userService.guestLogin();
+  }
+
+  loggingIn() {
     this.isLoggingIn = !this.isLoggingIn;
     let container = <View>this.container.nativeElement;
     container.animate({
@@ -55,10 +63,12 @@ export class LoginComponent implements OnInit {
       duration: 200
     })
   }
-  resetPassword(){
+
+  resetPassword() {
     this.userService.resetPassword(this.user);
   }
-  changePassword(){
+
+  changePassword() {
     this.userService.changePassword(this.user);
   }
 }

@@ -13,6 +13,6 @@ export class DrawerComponent {
   }
 
   logout(){
-    this.userService.logout();
+    this.userService.signOut();
   }
 }

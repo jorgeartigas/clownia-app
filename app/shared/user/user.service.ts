@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class UserService {
+  userId: string;
   currentUser: any;
   constructor(private router: Router) {
   }
@@ -12,21 +13,25 @@ export class UserService {
   isLoggedIn(){
     firebase.getCurrentUser().then(data => {
       if(data.uid){
+        this.userId = data.uid;
         this.router.navigate(["home"]);
+        console.log(this.userId)
       }
     })
   }
+
   register(user: User) {
       firebase.createUser({
         email: user.email,
         password: user.password
     }).then(result => {
-        user.uid = result.key;
+        this.userId = result.key;
         alert("User created succesfully");
     }).catch(err => {
         alert("createUser error: " + err);
     })
   }
+
   login(user: User) {
       firebase.login({
         type: firebase.LoginType.PASSWORD,
@@ -35,6 +40,7 @@ export class UserService {
           password: user.password
         }
       }).then(user => {
+        this.userId = user.uid;
         this.currentUser = user;
         //console.dir(user);
         this.router.navigate(["home"]);
@@ -42,6 +48,7 @@ export class UserService {
         alert("Incorrect user or password");
       }
   }
+
   facebookLogin() {
     firebase.login({
         type: firebase.LoginType.FACEBOOK,
@@ -49,7 +56,7 @@ export class UserService {
           scope: ['public_profile', 'email','user_hometown']
          }
     }).then( result => {
-        console.log(JSON.stringify(result));
+        this.userId = result.uid;
         this.router.navigate(["home"]);
       }), error => {
         console.log(error);
@@ -60,18 +67,31 @@ export class UserService {
     firebase.login({
       type: firebase.LoginType.GOOGLE
     }).then( result => {
-          console.log(JSON.stringify(result));
+          this.userId = result.uid;
           this.router.navigate(["home"]);
       }), error => {
           console.log(error);
       }
   }
 
+  guestLogin() {
+    this.router.navigate(["home"]);
+    firebase.login({
+        type: firebase.LoginType.ANONYMOUS
+      })
+      .then(user => {
+        console.log("User uid: " + user.uid);
+        this.userId = user.uid;
+      })
+      .catch(error => console.log("Could not create an anonymous user: " + error));
+  }
   signOut(): Promise<any> {
+    this.router.navigate(["/"]);
     return new Promise((resolve, reject) => {
       firebase.logout()
           .then(() => {
-            this.currentUser = undefined;
+            this.userId = null;
+            this.currentUser = null;
             resolve();
           })
           .catch(err => {
@@ -81,6 +101,7 @@ export class UserService {
           });
     });
   }
+
   resetPassword(user: User){
     firebase.resetPassword({
       email: user.email
@@ -105,6 +126,8 @@ export class UserService {
 
   logout(){
     firebase.logout();
+    this.userId = null;
+    this.currentUser = null
     this.router.navigate(['']);
   }
 }

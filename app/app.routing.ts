@@ -8,10 +8,9 @@ import { MapComponent } from "./pages/map/map.component";
 import { HelpComponent } from "./pages/help/help.component";
 import { ArtistComponent } from "./pages/artist/artist.component";
 import { AuthGuardArtist } from "./shared/auth-guard-artist.service";
-import { AuthGuardLogin } from "./shared/auth-guard-login.service";
 
 export const routes = [
-  { path: "", component: LoginComponent },
+  { path: "", component: LoginComponent},
   { path: "home", component: HomeComponent },
   { path: "city-of-clownia", component: CityComponent },
   { path: "con-space", component: ConSpaceComponent },

@@ -11,22 +11,25 @@ import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
 import { BottomBarComponent } from "./shared/bottom-bar/bottom-bar.component";
 import { AuthGuardArtist } from './shared/auth-guard-artist.service';
-import { AuthGuardLogin } from './shared/auth-guard-login.service';
 import { CurrentArtist } from './shared/artist.service';
+import { UserService } from './shared/user/user.service';
 // FIREBASE IMPORT
 import firebase = require ('nativescript-plugin-firebase');
 
 firebase.init({
-  persist: false,
+  persist: true,
   storageBucket: 'gs://clownia-d67a2.appspot.com',
   onAuthStateChanged: function (data) { // optional but useful to immediately re-logon the user when he re-visits your app
     console.log(data.loggedIn ? "Logged in to firebase" : "Logged out from firebase");
     if (data.loggedIn) {
+        console.log("Users+ uid: "+data.user.uid)
         console.log("user's email address: " + (data.user.email ? data.user.email : "N/A"));
     }
-},
-}).then(() => console.log("Firebase initialized"))
-  .catch(error => console.log(error));
+    },
+  }).then(() => {
+        console.log("Firebase initialized")
+    })
+    .catch(error => console.log(error));
 
 @NgModule({
   imports: [
@@ -45,8 +48,8 @@ firebase.init({
   ],
   providers: [
     AuthGuardArtist,
-    AuthGuardLogin,
-    CurrentArtist
+    CurrentArtist,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
