@@ -25,7 +25,7 @@ export class UserService {
         email: user.email,
         password: user.password
     }).then(result => {
-        this.userId = result.key;
+        this.currentUser = result;
         alert("User created succesfully");
     }).catch(err => {
         alert("createUser error: " + err);
@@ -55,8 +55,9 @@ export class UserService {
         facebookOptions: {
           scope: ['public_profile', 'email','user_hometown']
          }
-    }).then( result => {
+    }).then(result => {
         this.userId = result.uid;
+        this.currentUser = result;
         this.router.navigate(["home"]);
       }), error => {
         console.log(error);
@@ -66,8 +67,9 @@ export class UserService {
   googleLogin(){
     firebase.login({
       type: firebase.LoginType.GOOGLE
-    }).then( result => {
+    }).then(result => {
           this.userId = result.uid;
+          this.currentUser = result
           this.router.navigate(["home"]);
       }), error => {
           console.log(error);
@@ -80,8 +82,9 @@ export class UserService {
         type: firebase.LoginType.ANONYMOUS
       })
       .then(user => {
-        console.log("User uid: " + user.uid);
+        this.currentUser = user;
         this.userId = user.uid;
+
       })
       .catch(error => console.log("Could not create an anonymous user: " + error));
   }

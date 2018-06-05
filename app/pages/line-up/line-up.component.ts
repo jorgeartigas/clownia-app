@@ -1,6 +1,10 @@
-import { Component, ChangeDetectorRef, OnInit} from "@angular/core";
+import { UserService } from './../../shared/user/user.service';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy} from "@angular/core";
 import { DrawerPage } from "../../shared/drawer/drawer.page";
 import firebase = require("nativescript-plugin-firebase")
+import { User } from '../../shared/user/user';
+import { Observable } from 'rxjs/Observable';
+import { firestore } from 'nativescript-plugin-firebase';
 
 @Component({
   selector: "line-up",
@@ -9,12 +13,17 @@ import firebase = require("nativescript-plugin-firebase")
   templateUrl: "./line-up.component.html",
   styleUrls: ["./line-up-common.css"]
 })
-export class LineUpComponent extends DrawerPage implements OnInit {
-  artists: any = [];
+
+export class LineUpComponent extends DrawerPage implements OnInit, OnDestroy {
+  artists: any[] = [];
   myShedule: boolean = false;
   artistsRef = firebase.firestore.collection("artists_preview").orderBy("name","asc");
   artistsBySetTime = firebase.firestore.collection("artists_preview").orderBy("set", "asc");
   bySetTime: any;
+  // Own Schedule
+  localSchedule: any[] = [];
+  myScheduleArtists$: Observable<any>;
+  myScheduleArtists: any[] = [];
   // Artist by time
   firstDay: any = [];
   secondDay: any = [];
@@ -31,7 +40,10 @@ export class LineUpComponent extends DrawerPage implements OnInit {
   esplanadaToggle: boolean = false;
   carpaToggle: boolean = false;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef){
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService
+  ){
     super(changeDetectorRef);
   }
 
@@ -41,7 +53,61 @@ export class LineUpComponent extends DrawerPage implements OnInit {
         this.artists.push(artist.data());
       });
     });
-  
+    this.fillSchedule();
+    firebase.firestore.collection("user_schedules").doc(this.userService.userId).collection('artists').get().then(data => {
+      data.forEach(element => {
+        const date = new Date(element.data().set);
+        element.data().set = date; 
+        this.localSchedule.push(element.data());
+      });  
+    }).then(()=>{
+      this.localSchedule = this.localSchedule.sort((a: any, b: any) => new Date(a.set).getTime() - new Date(b.set).getTime());
+    })
+    //this.getMyScheduleObservable();
+  }
+
+  public addToSchedule(artist: any): void {
+    let found = false;
+    if (this.localSchedule.length>0) {
+      this.localSchedule.forEach(myArtist => {
+        if (myArtist.id === artist.id) {
+          found = true;
+        }
+      })
+    }
+    if (!found) {
+      this.localSchedule.push(artist);
+      firebase.firestore.collection('user_schedules').doc(this.userService.userId).collection('artists').doc(artist.id).set(artist);
+    }
+  }
+
+  public removeFromSchedule(artist: any): void {
+    this.localSchedule.forEach((myArtist,index) => {
+      if (myArtist.id === artist.id) {
+        this.localSchedule.splice(index,1);
+        firebase.firestore.collection('user_schedules').doc(this.userService.userId).collection('artists').doc(artist.id).delete();
+      }
+    })
+  }
+
+  private getMyScheduleObservable(): void {
+    this.myScheduleArtists$ = Observable.create(subscriber => {
+      const scheduleRef = firebase.firestore.collection("user_schedules").doc(this.userService.userId).collection('artists');
+      scheduleRef.onSnapshot(snap => {
+        this.myScheduleArtists = [];
+        snap.forEach(artist => this.myScheduleArtists.push(artist.data()));
+        subscriber.next(this.myScheduleArtists);
+      });
+    });
+    this.myScheduleArtists$.subscribe();
+  }
+
+  ngOnDestroy(): void {
+    console.log('destroy')
+
+  }
+
+  private fillSchedule(): void {
     this.artistsBySetTime
     .get()
     .then(snap => {
