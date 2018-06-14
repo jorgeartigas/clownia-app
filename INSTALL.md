@@ -67,11 +67,13 @@ A continuació executem aquesta comanda per tal d'instal·lar totes les `depend�
 # Asegurat de que la terminal es troba a la ruta del projecte, si no fes:  cd /PATH/
 npm install
 ```
-Un cop finalitzi l'instal·lació dels paquets, prodecim amb aquesta comanda, que ens farà un `build` del projecte per a poder veure els canvis de forma local en temps real. (development mode)
+Un cop finalitzi l'instal·lació dels paquets, prodecim amb aquesta comanda, que ens farà un `build` del projecte per a poder veure els canvis de forma local en temps real. (development mode) i ens instal·lara les plataformes android i ios, en cas contrari podem fer-ho manualment
 ```
+tns platform add android
 tns run android
 ```
 o si tenim un mac, tambe podem desenvolupar per ios
 ```
+tns platform add ios
 tns run ios
 ```
