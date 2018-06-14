@@ -1,4 +1,4 @@
-<ActionBar title="About">
+<ActionBar title="Map">
   <NavigationButton text="Menu" icon="res://ic_menu" (tap)="openDrawer()"></NavigationButton>
 </ActionBar>
 <RadSideDrawer #drawerComponent tkToggleNavButton showOverNavigation="true">
@@ -11,7 +11,14 @@
   <StackLayout tkMainContent>
       <GridLayout rows="*,60">
           <ScrollView row="0">
-            <Label text="Map"></Label>
+            <GridLayout row="*,*">
+                <MapView #mapView [latitude]="latitude" [longitude]="longitude" [height]="550"
+                            [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+                            [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+                            (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+                            (cameraChanged)="onCameraChanged($event)">
+                </MapView>
+            </GridLayout>
           </ScrollView>
           <!-- BOTTOM BAR -->
           <bottom-bar></bottom-bar>

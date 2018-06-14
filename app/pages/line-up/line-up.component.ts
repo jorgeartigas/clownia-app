@@ -1,10 +1,9 @@
 import { UserService } from './../../shared/user/user.service';
-import { Component, ChangeDetectorRef, OnInit, OnDestroy} from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit} from "@angular/core";
 import { DrawerPage } from "../../shared/drawer/drawer.page";
 import firebase = require("nativescript-plugin-firebase")
-import { User } from '../../shared/user/user';
 import { Observable } from 'rxjs/Observable';
-import { firestore } from 'nativescript-plugin-firebase';
+import * as LocalNotifications from "nativescript-local-notifications";
 
 @Component({
   selector: "line-up",
@@ -14,7 +13,7 @@ import { firestore } from 'nativescript-plugin-firebase';
   styleUrls: ["./line-up-common.css"]
 })
 
-export class LineUpComponent extends DrawerPage implements OnInit, OnDestroy {
+export class LineUpComponent extends DrawerPage implements OnInit {
   artists: any[] = [];
   myShedule: boolean = false;
   artistsRef = firebase.firestore.collection("artists_preview").orderBy("name","asc");
@@ -48,6 +47,7 @@ export class LineUpComponent extends DrawerPage implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    LocalNotifications.hasPermission();
     this.artistsRef.get().then(snap => {
       snap.forEach(artist => {
         this.artists.push(artist.data());
@@ -76,6 +76,8 @@ export class LineUpComponent extends DrawerPage implements OnInit, OnDestroy {
       })
     }
     if (!found) {
+      console.log(artist);
+      this.setNotification(artist);
       this.localSchedule.push(artist);
       firebase.firestore.collection('user_schedules').doc(this.userService.userId).collection('artists').doc(artist.id).set(artist);
     }
@@ -88,23 +90,6 @@ export class LineUpComponent extends DrawerPage implements OnInit, OnDestroy {
         firebase.firestore.collection('user_schedules').doc(this.userService.userId).collection('artists').doc(artist.id).delete();
       }
     })
-  }
-
-  private getMyScheduleObservable(): void {
-    this.myScheduleArtists$ = Observable.create(subscriber => {
-      const scheduleRef = firebase.firestore.collection("user_schedules").doc(this.userService.userId).collection('artists');
-      scheduleRef.onSnapshot(snap => {
-        this.myScheduleArtists = [];
-        snap.forEach(artist => this.myScheduleArtists.push(artist.data()));
-        subscriber.next(this.myScheduleArtists);
-      });
-    });
-    this.myScheduleArtists$.subscribe();
-  }
-
-  ngOnDestroy(): void {
-    console.log('destroy')
-
   }
 
   private fillSchedule(): void {
@@ -206,5 +191,29 @@ export class LineUpComponent extends DrawerPage implements OnInit, OnDestroy {
       });
       this.bySetTime = [].concat(this.firstDay,this.secondDay,this.thirdDay,this.fourthDay);
     });
+  }
+
+  public setNotification(artist: any): void {
+    LocalNotifications.schedule([{
+      id: 1,
+      title: 'Va a empezar',
+      body: 'Recurs every minute until cancelled',
+      ticker: 'The ticker',
+      badge: 1,
+      groupedMessages:["The first", "Second", "Keep going", "one more..", "OK Stop"], //android only
+      groupSummary:"Summary of the grouped messages above", //android only
+      ongoing: true, // makes the notification ongoing (Android only)
+      smallIcon: 'res://heart',
+      interval: 'minute',
+      sound: "customsound-ios.wav", // falls back to the default sound on Android
+      at: new Date(new Date().getTime() + (10 * 1000)) // 10 seconds from now
+    }]).then(
+        function() {
+          console.log("Notification scheduled");
+        },
+        function(error) {
+          console.log("scheduling error: " + error);
+        }
+    )
   }
 }
