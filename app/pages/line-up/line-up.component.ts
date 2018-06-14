@@ -4,6 +4,8 @@ import { DrawerPage } from "../../shared/drawer/drawer.page";
 import firebase = require("nativescript-plugin-firebase")
 import { Observable } from 'rxjs/Observable';
 import * as LocalNotifications from "nativescript-local-notifications";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from 'tns-core-modules/color/color';
 
 @Component({
   selector: "line-up",
@@ -14,6 +16,7 @@ import * as LocalNotifications from "nativescript-local-notifications";
 })
 
 export class LineUpComponent extends DrawerPage implements OnInit {
+  private feedback: Feedback;
   artists: any[] = [];
   myShedule: boolean = false;
   artistsRef = firebase.firestore.collection("artists_preview").orderBy("name","asc");
@@ -44,6 +47,7 @@ export class LineUpComponent extends DrawerPage implements OnInit {
     private userService: UserService
   ){
     super(changeDetectorRef);
+    this.feedback = new Feedback();
   }
 
   ngOnInit(): void {
@@ -63,7 +67,6 @@ export class LineUpComponent extends DrawerPage implements OnInit {
     }).then(()=>{
       this.localSchedule = this.localSchedule.sort((a: any, b: any) => new Date(a.set).getTime() - new Date(b.set).getTime());
     })
-    //this.getMyScheduleObservable();
   }
 
   public addToSchedule(artist: any): void {
@@ -76,7 +79,21 @@ export class LineUpComponent extends DrawerPage implements OnInit {
       })
     }
     if (!found) {
-      console.log(artist);
+      this.feedback.success({
+        title: "Thumbs up!",
+        titleColor: new Color("#222222"),
+        position: FeedbackPosition.Bottom, // iOS only
+        type: FeedbackType.Custom, // this is the default type, by the way
+        message: "Custom colors and icon. Loaded from the App_Resources folder.",
+        messageColor: new Color("#333333"),
+        duration: 3000,
+        backgroundColor: new Color("yellowgreen"),
+        icon: "customicon", // in App_Resources/platform folders
+        android: {
+          iconColor: new Color("#222222") // optional, leave out if you don't need it
+        },
+        onTap: () => { this.feedback.hide() }
+      });
       this.setNotification(artist);
       this.localSchedule.push(artist);
       firebase.firestore.collection('user_schedules').doc(this.userService.userId).collection('artists').doc(artist.id).set(artist);
@@ -194,19 +211,21 @@ export class LineUpComponent extends DrawerPage implements OnInit {
   }
 
   public setNotification(artist: any): void {
+    // Set new notification 15mins before set Time
+    const d = new Date(artist.set);
+    d.setTime(d.getTime()-(900000));
+
     LocalNotifications.schedule([{
       id: 1,
-      title: 'Va a empezar',
-      body: 'Recurs every minute until cancelled',
-      ticker: 'The ticker',
+      title: `${artist.name} començara a les ${artist.startTime} al ${artist.stage}`,
+      body: "",
       badge: 1,
-      groupedMessages:["The first", "Second", "Keep going", "one more..", "OK Stop"], //android only
-      groupSummary:"Summary of the grouped messages above", //android only
-      ongoing: true, // makes the notification ongoing (Android only)
-      smallIcon: 'res://heart',
+      groupSummary: `${artist.name} is going live in 15 minutes`, //android only
+      ongoing: false, // makes the notification ongoing (Android only)
+      smallIcon: 'res://tent',
       interval: 'minute',
       sound: "customsound-ios.wav", // falls back to the default sound on Android
-      at: new Date(new Date().getTime() + (10 * 1000)) // 10 seconds from now
+      at: new Date(new Date().getTime()+(10*1000))
     }]).then(
         function() {
           console.log("Notification scheduled");

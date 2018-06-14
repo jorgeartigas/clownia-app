@@ -30,7 +30,8 @@
                                             <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
                                             <Label textWrap="true" [text]='item.stage'></Label>
                                         </StackLayout>
-                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center" (tap)="addToSchedule(item)"></Label>
+                                        <Label *ngIf="!item.seen" col="2" class="awesome" text="&#xf0fe;" textAlignment="center" (tap)="addToSchedule(item)"></Label>
+                                        <Label *ngIf="item.seen" col="2" class="awesome" text="&#xf146;" textAlignment="center" (tap)="removeFromSchedule(item)"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </ng-template>
@@ -54,6 +55,7 @@
                                             <Label textWrap="true" [text]='item.stage'></Label>
                                         </StackLayout>
                                         <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                        <Label *ngIf="item.seen" col="2" class="awesome" text="&#xf146;" textAlignment="center" (tap)="removeFromSchedule(item)"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </ng-template>
@@ -79,6 +81,7 @@
                                             <Label textWrap="true" [text]='item.stage'></Label>
                                         </StackLayout>
                                         <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                        <Label *ngIf="item.seen" col="2" class="awesome" text="&#xf146;" textAlignment="center" (tap)="removeFromSchedule(item)"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </ng-template>
@@ -100,6 +103,7 @@
                                             <Label textWrap="true" [text]='item.stage'></Label>
                                         </StackLayout>
                                         <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                        <Label *ngIf="item.seen" col="2" class="awesome" text="&#xf146;" textAlignment="center" (tap)="removeFromSchedule(item)"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </ng-template>
@@ -123,6 +127,7 @@
                                             <Label textWrap="true" [text]='item.stage'></Label>
                                         </StackLayout>
                                         <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                        <Label *ngIf="item.seen" col="2" class="awesome" text="&#xf146;" textAlignment="center" (tap)="removeFromSchedule(item)"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </ng-template>
@@ -143,7 +148,8 @@
                                             <Label textWrap="true" text="{{ item.startTime }} - {{ item.endTime }}" ></Label>
                                             <Label textWrap="true" [text]='item.stage'></Label>
                                         </StackLayout>
-                                        <Label col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                        <Label *ngIf="!item.seen" col="2" class="awesome" text="&#xf0fe;" textAlignment="center"></Label>
+                                        <Label *ngIf="item.seen" col="2" class="awesome" text="&#xf146;" textAlignment="center" (tap)="removeFromSchedule(item)"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </ng-template>
