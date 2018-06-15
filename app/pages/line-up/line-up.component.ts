@@ -4,8 +4,7 @@ import { DrawerPage } from "../../shared/drawer/drawer.page";
 import firebase = require("nativescript-plugin-firebase")
 import { Observable } from 'rxjs/Observable';
 import * as LocalNotifications from "nativescript-local-notifications";
-import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
-import { Color } from 'tns-core-modules/color/color';
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
 
 @Component({
   selector: "line-up",
@@ -16,7 +15,6 @@ import { Color } from 'tns-core-modules/color/color';
 })
 
 export class LineUpComponent extends DrawerPage implements OnInit {
-  private feedback: Feedback;
   artists: any[] = [];
   myShedule: boolean = false;
   artistsRef = firebase.firestore.collection("artists_preview").orderBy("name","asc");
@@ -47,11 +45,11 @@ export class LineUpComponent extends DrawerPage implements OnInit {
     private userService: UserService
   ){
     super(changeDetectorRef);
-    this.feedback = new Feedback();
   }
 
   ngOnInit(): void {
     LocalNotifications.hasPermission();
+    //LocalNotifications.cancelAll();
     this.artistsRef.get().then(snap => {
       snap.forEach(artist => {
         this.artists.push(artist.data());
@@ -70,30 +68,20 @@ export class LineUpComponent extends DrawerPage implements OnInit {
   }
 
   public addToSchedule(artist: any): void {
+    // Create an instance of SnackBar
+    let snackbar = new SnackBar();
     let found = false;
     if (this.localSchedule.length>0) {
       this.localSchedule.forEach(myArtist => {
         if (myArtist.id === artist.id) {
           found = true;
+          snackbar.simple(`${artist.name} ja existeix al horari!`, '#fff', 'red');
         }
       })
+      
     }
     if (!found) {
-      this.feedback.success({
-        title: "Thumbs up!",
-        titleColor: new Color("#222222"),
-        position: FeedbackPosition.Bottom, // iOS only
-        type: FeedbackType.Custom, // this is the default type, by the way
-        message: "Custom colors and icon. Loaded from the App_Resources folder.",
-        messageColor: new Color("#333333"),
-        duration: 3000,
-        backgroundColor: new Color("yellowgreen"),
-        icon: "customicon", // in App_Resources/platform folders
-        android: {
-          iconColor: new Color("#222222") // optional, leave out if you don't need it
-        },
-        onTap: () => { this.feedback.hide() }
-      });
+      snackbar.simple(`${artist.name} s'ha afegit al horari!`, '#fff', 'green');
       this.setNotification(artist);
       this.localSchedule.push(artist);
       firebase.firestore.collection('user_schedules').doc(this.userService.userId).collection('artists').doc(artist.id).set(artist);
@@ -225,7 +213,7 @@ export class LineUpComponent extends DrawerPage implements OnInit {
       smallIcon: 'res://tent',
       interval: 'minute',
       sound: "customsound-ios.wav", // falls back to the default sound on Android
-      at: new Date(new Date().getTime()+(10*1000))
+      at: d
     }]).then(
         function() {
           console.log("Notification scheduled");

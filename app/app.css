@@ -73,3 +73,46 @@ ActionBar {
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
+
+.bg-img {
+    background-image: url("res://ciutat_bg_2018") no-repeat;
+    background-size: cover;
+}
+
+.bg-artists {
+    background-image: url("res://clownia_poster_2018_final_down") no-repeat;
+    background-size: cover;
+}
+
+.title {
+    color:red;
+    font-size: 30;
+    text-align: center;
+    font-style: italic;
+}
+.title-2{
+    color:red;
+    font-size: 20;
+    text-align: center;
+    font-style: italic;
+}
+.title-orange {
+    color:#b48909;
+    font-size: 20;
+    text-align: center;
+    font-style: italic;
+}
+
+.question {
+    padding: 20;
+    text-align: center;
+    background-color: rgb(97, 97, 247);
+    font-size: 20;
+    color: white;
+}
+
+.answer {
+    padding-left:20;
+    background-color: white;
+    color: black;
+}

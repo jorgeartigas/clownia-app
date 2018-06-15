@@ -8,11 +8,12 @@
       </StackLayout>
   </ScrollView>
   <!-- MAIN CONTENT OF PAGE GOES BELOW-->
-  <StackLayout tkMainContent>
-      <Label text="Pàgina per explorar el ripollès/sant joan de les abadesses"></Label>
+  <StackLayout tkMainContent class="bg-img">
+      <Label textWrap="true" text="Sant Joan de les Abadesses i el Ripollès" class="title"></Label>
+      <Label textWrap="true" text="Coneix l'entorn de Clownia. També és un festival, visitar la comarca durant tot l'any!" class="title-orange"></Label>
       <GridLayout rows="*,60">
             <ScrollView row="0">
-  
+                    <Image src="res://ripolles" stretch="aspectFit" horizontalAlignment="center" (tap)="open()"></Image>
             </ScrollView>
             <!-- BOTTOM BAR -->
             <bottom-bar></bottom-bar>

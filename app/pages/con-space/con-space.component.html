@@ -8,12 +8,21 @@
       </StackLayout>
   </ScrollView>
   <!-- MAIN CONTENT OF PAGE GOES BELOW-->
-  <StackLayout tkMainContent>
-      <Label text="Pàgina del espai consciència"></Label>
+  <StackLayout tkMainContent class="bg-img">
+      <Label text="Espai Consciència" class="title"></Label>
       <GridLayout rows="*,60">
-            <ScrollView row="0">
+            <StackLayout orientation="vertical">
+                <ScrollView>
+                    <TextView editable="false" text="Des de l’Espai Consciència creiem en la importància de generar un entorn acollidor que disposi del caliu necessari per desenvolupar totes les activitates, tallers i xerrades proposades. Per aconseguir aquest ambient desitjat, l’espai es divideix en quatre grans zones:
 
-            </ScrollView>
+                    Carpa de circ: espai principal on es desenvolupen la majoria d’activitats programades (xerrades, debats, tallers…). La bonica carpa de circ genera, a la vista, un paisatge romàntic entre les muntanyes del Ripollès. Al seu interior podem trobar un petit escenari, en el que hi ha mobiliari cedit per la Fundació MAP -que també té una parada a la fira de col·lectius i entitats-, on es duen a terme la majoria de xerrades i debats. És un espai on descansar sobre coixins. Després de les experiències viscudes l’any anterior, podem afirmar que a l’interior de la carpa es construeix un clima de màgia compartida entre participants i assistents.
+                    Fira de col·lectius i entitats: formada per 20 parades, vol ser un espai d’aproximació entre el públic i entitats (col·lectius, editorials, cooperatives, etc) per donar a conèixer la seva tasca, relacionada en l’àmbit social.
+                    Art en viu: espai dedicat a la visualització de la creació artística en viu. Aquest espai estarà format per quatre grans bastidors que permeten acompanyar i observar els artistes durant la creació de les seves obres plàstiques. Els pintors ens oferiran la seva mirada sobre el festival mitjançant les seves pinzellades.
+                    Taverna: aquest any, a part del servei de la barra de bar, disposarem d’una zona de descans on prendre tranquil·lament un refrigeri sense necessitat d’allunyar-se de l’Espai Consciència.">
+                    </TextView>
+                </ScrollView>
+            </StackLayout>
+
             <!-- BOTTOM BAR -->
             <bottom-bar></bottom-bar>
     </GridLayout>

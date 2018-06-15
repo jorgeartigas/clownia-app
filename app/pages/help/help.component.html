@@ -8,11 +8,14 @@
       </StackLayout>
   </ScrollView>
   <!-- MAIN CONTENT OF PAGE GOES BELOW-->
-  <StackLayout tkMainContent>
+  <StackLayout tkMainContent class="bg-img">
       <GridLayout rows="*,60">
-          <ScrollView row="0">
-            <Label text="Help"></Label>
-          </ScrollView>
+          <StackLayout orientation="vertical">
+            <Label class="question" text="Que puc duur al camping?" width="300" (tap)="q1=!q1"></Label>
+            <Label textWrap="true" class="question answer" *ngIf="q1" text="Només ampolles de plastic i tendes de campanya" width="300" backgroundCoolor="lightgray"></Label>
+            <Label class="question" text="Hi ha carregadors de mòvil?" width="300" (tap)="q2=!q2"></Label>
+            <Label textWrap="true" class="question answer" *ngIf="q2" text="Si, disposem de zones de càrrega que podràs trobar al nostre mapa" width="300" backgroundCoolor="lightgray"></Label>
+        </StackLayout>
           <!-- BOTTOM BAR -->
           <bottom-bar></bottom-bar>
       </GridLayout>
